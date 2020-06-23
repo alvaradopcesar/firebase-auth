@@ -118,14 +118,15 @@
   </div>
   
   <!-- The core Firebase JS SDK is always required and must be listed first -->
-  <script src="https://www.gstatic.com/firebasejs/7.15.2/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/7.15.2/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/7.15.2/firebase-functions.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/7.15.2/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-functions.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-messaging.js"></script>
 
   <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#available-libraries -->
-  <script src="https://www.gstatic.com/firebasejs/7.15.2/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-analytics.js"></script>
 
   <script>
     // Your web app's Firebase configuration
@@ -147,6 +148,28 @@
     const auth = firebase.auth();
     const db = firebase.firestore();
     const functions = firebase.functions();
+    const messaging = firebase.messaging();
+
+    // messaging.usePublicVapidKey("AAAAR1EFNAQ:APA91bEFNiBr4IRu4nohBYOzALtbM-JmiI8u7pupDrEIJFcNmxPjKyHW7TXxcKWrynwtYwsam5NO89N43HT5rB5kTQDCRmOqLqpo3ronuqciGXLZedSxp-WGSj56nf7hwYP_M2btm-bI");
+    messaging.requestPermission().then( function()  {
+      console.log("Have Permition");
+      // console.log(messaging.getToken())
+      // token = messaging.getToken()
+      // console.log(token)
+      // return token
+      return messaging.getToken() 
+    })
+    .then( function(token) {
+      console.log(token) 
+    })
+    .catch(function(){
+      console.log("Error")
+    })
+
+    messaging.onMessage(function(payload){
+      console.log("OnMessage : ", payload);
+    });
+
 
     db.settings({ timestampsInSnapshots: true });
 
