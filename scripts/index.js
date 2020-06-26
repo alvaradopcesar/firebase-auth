@@ -7,6 +7,7 @@ const adminItems = document.querySelectorAll('.admin');
 
 const inputTextField = document.querySelector('#latestHotDogStatus');
 const saveButton = document.querySelector('#saveButton');
+const loadButton = document.querySelector('#loadButton');
 
 const docRef = firestore.doc("samples/panConPollo");
 
@@ -21,6 +22,34 @@ saveButton.addEventListener("click",function(){
     console.log(error);
   })
 })
+
+
+loadButton.addEventListener("click",function(){
+  console.log("click to load button");
+  docRef.get().then(function(doc){
+    if (doc && doc.exists) {
+      const myData = doc.data();
+      console.log(" load manual " + myData.hotDogStatus)
+      // console.log(myData)
+      // console.log(myData.hotDogStatus)
+    }
+  }).catch(function(error){
+    console.log(error);
+  })  
+})
+
+getRealTimeUpdates = function() {
+  docRef.onSnapshot(function( doc ){
+    if (doc && doc.exists) {
+      const myData = doc.data();
+      console.log(" load automatico " + myData.hotDogStatus)
+      // console.log(myData)
+      // console.log(myData.hotDogStatus)
+    }    
+  })
+}
+
+getRealTimeUpdates();
 
 
 const setupUI = (user) => {
