@@ -5,6 +5,15 @@ const loggedInLinks = document.querySelectorAll('.logged-in');
 const accountDetails = document.querySelector('.account-details');
 const adminItems = document.querySelectorAll('.admin');
 
+const inputTextField = document.querySelector('#latestHotDogStatus');
+const saveButton = document.querySelector('#saveButton');
+
+saveButton.addEventListener("click",function(){
+  const textsave = inputTextField.value; 
+  console.log("voy a grabar est valor " + textsave + " en firebase");
+})
+
+
 const setupUI = (user) => {
   if (user) {
     if (user.admin) {
