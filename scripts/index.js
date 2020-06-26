@@ -8,9 +8,18 @@ const adminItems = document.querySelectorAll('.admin');
 const inputTextField = document.querySelector('#latestHotDogStatus');
 const saveButton = document.querySelector('#saveButton');
 
+const docRef = firestore.doc("samples/panConPollo");
+
 saveButton.addEventListener("click",function(){
   const textsave = inputTextField.value; 
   console.log("voy a grabar est valor " + textsave + " en firebase");
+  docRef.set({
+    hotDogStatus: textsave 
+  }).then(function(){
+    console.log("grabado en Firebase");
+  }).catch(function(error){
+    console.log(error);
+  })
 })
 
 
