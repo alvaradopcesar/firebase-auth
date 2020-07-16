@@ -13,7 +13,17 @@ const docRef = firestore.doc("samples/panConPollo");
 
 saveButton.addEventListener("click",function(){
   const textsave = inputTextField.value; 
+  let data = {
+    google: new firebase.firestore.GeoPoint(37.422, 122.084)
+  };  
   console.log("voy a grabar est valor " + textsave + " en firebase");
+
+  firestore.doc('col/doc').set(data).then(() => {
+    console.log(`Location is ${data.google.latitude}, ` +
+      `${data.google.longitude}`);
+  });
+
+
   docRef.set({
     hotDogStatus: textsave 
   }).then(function(){
